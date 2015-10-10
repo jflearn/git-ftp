@@ -10,14 +10,17 @@ This should work on Mac OS X, Debian, Ubuntu, Fedora, RedHat, etc.
 
 The easiest way is to use Git for installing:
 
-	$ git clone https://github.com/resmo/git-ftp.git
+	$ git clone https://github.com/git-ftp/git-ftp.git
 	$ cd git-ftp
-	$ git checkout master
+	$ git tag # see available tags
+	$ git checkout <tag> # checkout the latest tag by replacing <tag>
 	$ sudo make install
 
 Updating using git
 
 	$ git pull
+	$ git tag # see available tags
+	$ git checkout <tag> # checkout the latest tag by replacing <tag>
 	$ sudo make install
 
 
@@ -43,40 +46,62 @@ Adding PPA on Ubuntu
 Note: Usually updated after every release (tag).
 
 
+ArchLinux (AUR: unofficial)
+---------------------------
+See https://aur.archlinux.org/packages/?O=0&C=0&SeB=nd&K=git-ftp&SB=v&SO=d&PP=50&do_Search=Go
+
+
 Mac OS X
 --------
-Warning: git-ftp will not work with OS X 10.8 without GNU grep!
-
 Using homebrew:
-	# brew install grep
+
 	# brew install git
-	# brew install curl --with-ssl --with-ssh
+	# brew install curl --with-ssl --with-libssh2
 	# brew install git-ftp
 
 Windows
 -------
 There are at least two ways to install git-ftp on Windows.
 
- * Using cygwin only
- * Using cygwin and msysgit (recommended)
+ * Using cygwin
+ * Using msysgit (recommended)
 
-First install cygwin and install the package 'curl'.
-If you like to use cygwin only, install package 'git',
-otherwise install msysgit.
+### cygwin
+
+Install cygwin and install the package 'curl'.
+
+### msysgit
+
+Install msysgit. It comes with 'curl' installed by default, however it doesn't support SFTP by default.
+In order to use SFTP, download curl for Windows with SFTP support on the [curl website]( http://curl.haxx.se/download.html). Win32 2000/XP MSI or Win64 2000/XP x86_64 MSI is recommended. Then in your msysgit installation folder, remove bin/curl.exe. This will allow for all calls to curl to fall back from Git's curl to the one you just installed that also supports SFTP.
 
 After this, open git bash (or cygwin bash for cygwin only):
 
 	$ cd ~
-	$ git clone https://github.com/resmo/git-ftp git-ftp.git
-	$ cd git-ftp.git && chmod +x git-ftp
-	$ cp ~/git-ftp.git/git-ftp /bin/git-ftp
-
-__Important:__ Because Windows does not support symbolic links (shortcuts),
-the above steps will create a copy of the git-ftp script in your /bin/ directory.
-If you update your git-ftp clone, you will have to repeat the last command.
+	$ git clone https://github.com/git-ftp/git-ftp
+	$ cd git-ftp && chmod +x git-ftp
+	$ cd /bin
+	$ ln -s ~/git-ftp/git-ftp
 
 *Note: the /bin/ directory is a alias, and if you use msysgit this is the same as C:\Program Files (x86)\Git\bin\*
 
+### msysgit with installed cygwin
+
+If you have both msysgit and cygwin installed on Windows and want to use msysgit for git commands, you may get an error "No such file or directory" for a path starting "/cygdrive/"; e.g.:
+
+	creating `/cygdrive/c/TEMP/git-ftp-m7GH/delete_tmp': No such file or directory
+
+The problem is that git-ftp use commands from both cygwin and msysgit folders, but cygwin is by default configured to start paths with "/cygdrive" prefix while msysgit starts paths with "/". To fix the problem, open file "<cygwin>\etc\fstab" (e.g. "c:\cygwin\etc\fstab") and change parameter "/cygwin/" to "/"; e.g.:
+
+	# This is default:
+	none /cygdrive/ cygdrive binary,posix=0,user 0 0
+
+change to:
+
+	# This is default:
+	none / cygdrive binary,posix=0,user 0 0
+
+After this, close all console windows and try again.
 
 Upstream using symlinking
 -------------------------
@@ -89,7 +114,7 @@ This is a easy way to have more then one git-ftp installed
 
 	$ mkdir -p ~/develop/git-ftp.git
 	$ cd ~/develop/git-ftp.git
-	$ git clone https://github.com/resmo/git-ftp.git .
+	$ git clone https://github.com/git-ftp/git-ftp.git .
 	$ chmod +x git-ftp
 	$ mkdir ~/bin && cd ~/bin/
 	$ ln -s ~/develop/git-ftp.git/git-ftp git-ftp.dev

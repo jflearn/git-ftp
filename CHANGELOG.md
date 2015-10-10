@@ -1,9 +1,139 @@
-Version 0.8.3
+Version 1.1.0
+=============
+
+Maikel Linke (mkllnk):
+* Added upload and delete buffers in a curl config file.
+* Added optimisation in include file processing.
+* Added filtering with shell glob patterns instead of regex.
+* Added encoding remote file path for curl.
+* Added misc minor improvements and code optimisations.
+* Docs: Explaining .git-ftp-ignore patterns.
+
+Tim:
+* Added URL encoding username and password to be used in curl URL.
+
+ysakmrkm:
+* Docs: Add --remote-root to man file.
+
+René Moser:
+* Added -P for interactive password prompt, use -p only for passing password by cli.
+* Added functionality for using temporary directory for temp files.
+* Docs: Updated man page and docs about -P.
+* Removed optimistic directory deletion, fixes GH-168 (reported by Justin Maier)
+
+Version 1.0.0
+=============
+
+Maikel Linke (mkllnk):
+* Added test to ignore single file in root directory.
+* Added Travis support.
+* Added tests for git-ftp-include with git-ftp-ignore.
+* Added test uploading heaps.
+* Improved and extended testing.
+* Improved checking remote access before initial upload.
+* Fixed upload_sha1 at end of push action.
+* Fixed not recognizing different SHA1 object.
+* Fixed upload local sha1 only if files where pushed.
+* Fixed delete buffer. Fire before ARG_MAX reached.
+* Fixed counting bug in handle_file_sync().
+* Fixed upload buffer length check.
+* Fixed prevent deleting of unversioned files.
+* Removed duplicate code of setting curl args.
+
+Andrew Minion, Szerémi Attila, Max Horn, Ryan Ponce, Rob Upcraft, Pablo Alejandro Fiumara:
+* Documentation updates.
+
+René Moser:
+* Fixed scope may not contain spaces
+* Fixed error level of failing delete action.
+* Several improvements.
+
+Sudaraka Wijesinghe:
+* Fix for url from git config not being identified correctly.
+
+Matteo Manchi:
+* Fixed DEPLOYED_SHA1_FILE now cares about scope.
+
+iKasty:
+* Added support for different remote root directory, option --remote-root.
+
+Brad Jones:
+* Fixed delete for SFTP.
+
+Version 1.0.0-rc.2
+==================
+
+Maikel Linke (mkllnk):
+* Added more tests, tests clean up and improvements. See README.md in /tests.
+* Improved docs.
+
+Jason Woof, mkllnk:
+* Fixed .git-ftp-include split lines on whitespace.
+* Fixed .git-ftp-include will not upload files that are a substr of another path being uploaded.
+
+René Moser:
+* Added netrc in docs.
+* Fixed sha1 not updated if amended.
+
+Version 1.0.0-rc.1
+==================
+
+Moz Morris:
+* Delete files using a single connection.
+
+m4grio:
+* Added --disable-epsv option.
+
+Martin Hradil:
+* Support for .git-ftp-including files without any git dependencies.
+
+René Moser:
+* Updated docs.
+* Fixed git init fails when using .git-ftp-include as SHA1_DEPLOYED is defined.
+* Code cleanup.
+
+Version 0.9.0
+=============
+
+Adam Brengesjö:
+* Add action 'log'.
+
+Jason Woofenden:
+* Fixed quoting of REMOTE_PASSWD.
+* Fixed detection of curl verbosity setting.
+* Fixed log deletion failure even when being verbose.
+
+Joyce Babu:
+* Public key authentication key files path as configurable option.
+* Renamed the parameter names to match curl options.
+Louis Li:
+* Fixed a minor formatting issue in INSTALL.
+
+Mar Cejas:
+* Fixed bug, Error: binary operator expected.
+
+Shea Bunge:
+* Doc: Updated Windows installation instructions.
+
+mamzellejuu:
+* Doc: Fixed Repo path wasn't updated.
+
+René Moser:
+* Fixed egrep: repetition-operator operand invalid OS X 10.9
+
+Version 0.8.4
 =============
 
 * Performance improvments in submodule handling. Thanks to Adam Brengesjö.
 * Hotfix 0.8.2 did not fix the bug. Another try fixing bug related to ARG_MAX.
-* Fixed bug 'egrep: repetition-operator operand invalid' if running on OSX 10.8.
+* Info for OS X 10.8 users: Make sure you are using GNU grep. See commit f4baf02731ada267d399a6206d21fffc0357d75a.
+* Info: Repo moved to https://github.com/git-ftp/git-ftp
+* Added support for syncing untracked files. Thanks to Jonathan Patt.
+* Added support for --insecure in config. Thanks to Erik Erkelens.
+* Fixed issues with insecure config option being ignored. Thanks to Andrew Fenn.
+* Fixed error output not using stderr.
+* Fixed sync root missing from submodule sync. Thanks to John Learn.
+* Lots of minor fixes and documentation updates.
 
 Version 0.8.2
 =============
